@@ -47,6 +47,54 @@ class LoginPage extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
+              child: TextFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Ingrese su usuario',
+                      prefixIcon: Icon(Icons.person))),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: TextFormField(
+                  decoration: InputDecoration(
+                      hintText: 'Ingrese su contraseña',
+                      prefixIcon: Icon(Icons.lock))),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => HomePage(),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Container(
+                  width: double.infinity,
+                  height: 45,
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Center(
+                    child: Text(
+                      'Ingresar',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            /*Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
@@ -75,11 +123,11 @@ class LoginPage extends StatelessWidget {
                       ),
                     )),
               ),
-            ),
+            ),*/
             SizedBox(
               height: 20,
             ),
-            Padding(
+            /*Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: Card(
                   elevation: 5,
@@ -102,7 +150,7 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                   )),
-            ),
+            ),*/
             SizedBox(
               height: 20,
             ),
@@ -110,34 +158,38 @@ class LoginPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Row(
                 children: [
-                  Checkbox(
-                    value: true,
-                    onChanged: (value) {},
-                    activeColor: Colors.blue,
+                  Expanded(
+                    child: Checkbox(
+                      value: true,
+                      onChanged: (value) {},
+                      activeColor: Colors.blue,
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
                       print('pressed');
                     },
-                    child: RichText(
-                        text: TextSpan(children: [
-                      TextSpan(
-                        text: 'Estoy de acuerdo con los ',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      TextSpan(
-                        text: 'términos y condiciones.',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline),
-                      )
-                    ])),
+                    child: Expanded(
+                      child: RichText(
+                          text: TextSpan(children: [
+                        TextSpan(
+                          text: 'Estoy de acuerdo con los ',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        TextSpan(
+                          text: 'términos y condiciones.',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline),
+                        )
+                      ])),
+                    ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 8, right: 20),
               child: Row(
                 children: [
                   Checkbox(

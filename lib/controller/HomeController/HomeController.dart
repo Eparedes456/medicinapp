@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicianapp/models/Especialidades/EspecialidadesModel.dart';
+import 'package:medicianapp/pages/Doctores/DoctoresListPage.dart';
 import 'package:medicianapp/services/ApiServices.dart';
 
 class HomeController extends GetxController{
@@ -9,6 +10,7 @@ class HomeController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getEspecialidades();
   }
 
   @override
@@ -52,6 +54,15 @@ class HomeController extends GetxController{
       hayData = false;
     }
 
+    update();
+
+  }
+
+  navigateToListDoc(String idEspecialidad,String nombreEspecialidad){
+    Get.to(
+      DoctoresListPage(),
+      arguments: [idEspecialidad,nombreEspecialidad]
+    );
   }
 
 }

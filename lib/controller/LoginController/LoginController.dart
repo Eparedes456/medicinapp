@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicianapp/pages/home/HomePage.dart';
 import 'package:medicianapp/services/ApiServices.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController{
 
@@ -19,15 +20,21 @@ class LoginController extends GetxController{
 
 
   ApiServices apiConexion = ApiServices();
+  TextEditingController userController = new TextEditingController();
+  TextEditingController passController = new TextEditingController();
 
-  login(String userName, String pass)async{
+  login()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    
 
-    var response = await apiConexion.login(userName, pass);
+    var response = await apiConexion.login(userController.text, passController.text);
     if(response != 1 && response != 2){
 
       print('ingrese');
-
+      preferences.setString('token',response['token']);
+      preferences.setString('username', response['user']['nombreCompleto']);
       Get.offAll(HomePage());
+      
 
     }else if(response == 1){
       print('error de servidor');

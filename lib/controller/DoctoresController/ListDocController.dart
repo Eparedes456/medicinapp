@@ -24,6 +24,8 @@ class LisDocController extends GetxController {
   ApiServices apiConexion = ApiServices();
   List<DoctorsModel> doclist = [];
   String nameEspecialidad = "";
+  bool loading = true;
+  bool haydata = false;
 
   getDoctors(String idEspecialidad) async {
     var response = await apiConexion.getDoctorbyEspecialidad(idEspecialidad);
@@ -34,11 +36,16 @@ class LisDocController extends GetxController {
             nombreCompleto: element["nombreCompleto"],
             numColegioMed: element["numeroColegioMedico"],
             direccion: element["direccion"],
-            foto: element["foto"] == null ? "" : element["foto"],
+            foto: element["foto"] == null ? "" : element["foto"].substring(23),
             especialidad: element["especialidad"]["descripcion"],
             documento: element["documento"],
+            costo: element['costo'].toString(),
+            descripcion: element['descripcion'],
             estado: element["estado"]));
       });
+
+      loading = false;
+      haydata = true;
     } else {
       print("algo salio mal");
     }
@@ -46,8 +53,8 @@ class LisDocController extends GetxController {
     update();
   }
 
-  navigateToPerDoc() {
-    Get.to(DoctorPage());
+  navigateToPerDoc(DoctorsModel doctorData) {
+    Get.to(DoctorPage(), arguments: doctorData);
   }
 
   navigateToAgendar() {

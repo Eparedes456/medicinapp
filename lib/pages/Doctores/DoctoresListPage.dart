@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicianapp/controller/DoctoresController/ListDocController.dart';
@@ -21,180 +23,207 @@ class DoctoresListPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      hintText: 'Busca al doctor por su nombre',
-                      suffixIcon: Icon(Icons.search),
+                  child: Container(
+                    height: 45,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        hintText: 'Busca al doctor por su nombre',
+                        suffixIcon: Icon(Icons.search),
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Expanded(
-                  child: Container(
-                      child: ListView.builder(
-                    itemCount: _.doclist.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: GestureDetector(
-                          onTap: () {
-                            _.navigateToAgendar();
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            elevation: 5,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 10, right: 10),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 12,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 70,
-                                        width: 80,
-                                        //color: Colors.blue,
-                                        child: Stack(
-                                          children: [
-                                            Center(
-                                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-
-                                                  //color: Colors.black
-                                                ),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  child: Image(
-                                                    image: NetworkImage(
-                                                        'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80'),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Positioned(
-                                              bottom: 5,
-                                              right: 8,
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  _.navigateToPerDoc();
-                                                },
-                                                child: Container(
-                                                  height: 20,
-                                                  width: 30,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                  child: Center(
-                                                      child: Icon(
-                                                          Icons.visibility,
-                                                          size: 20,
-                                                          color: Colors.blue)),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 12,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(_.doclist[index].nombreCompleto,
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w600)),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                            _.doclist[index].especialidad,
-                                            style:
-                                                TextStyle(color: Colors.grey),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Text(
-                                              'CMP: ' +
-                                                  _.doclist[index]
-                                                      .numColegioMed,
-                                              style: TextStyle(
-                                                  color: Colors.grey)),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  Divider(
-                                    color: Colors.grey,
-                                  ),
-                                  Padding(
+                _.loading == true && _.haydata == false
+                    ? Expanded(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : Expanded(
+                        child: Container(
+                            child: ListView.builder(
+                          itemCount: _.doclist.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              child: GestureDetector(
+                                onTap: () {
+                                  _.navigateToAgendar();
+                                },
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15)),
+                                  elevation: 5,
+                                  child: Padding(
                                     padding:
                                         EdgeInsets.only(left: 10, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                    child: Column(
                                       children: [
-                                        Column(
+                                        SizedBox(
+                                          height: 12,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              'Importe',
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 13),
+                                            Container(
+                                              height: 70,
+                                              width: 80,
+                                              //color: Colors.blue,
+                                              child: Stack(
+                                                children: [
+                                                  Center(
+                                                    child: Container(
+                                                      height: 70,
+                                                      width: 70,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+
+                                                        //color: Colors.black
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                        child: Image(
+                                                          image: MemoryImage(
+                                                              base64Decode(_
+                                                                  .doclist[
+                                                                      index]
+                                                                  .foto)),
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                    bottom: 5,
+                                                    right: 8,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        _.navigateToPerDoc(
+                                                            _.doclist[index]);
+                                                      },
+                                                      child: Container(
+                                                        height: 20,
+                                                        width: 30,
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        50)),
+                                                        child: Center(
+                                                            child: Icon(
+                                                                Icons
+                                                                    .visibility,
+                                                                size: 20,
+                                                                color: Colors
+                                                                    .blue)),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                             SizedBox(
-                                              height: 5,
+                                              width: 12,
                                             ),
-                                            Text(
-                                              'S/90.00',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    _.doclist[index]
+                                                        .nombreCompleto,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600)),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  _.doclist[index].especialidad,
+                                                  style: TextStyle(
+                                                      color: Colors.grey),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                    'CMP: ' +
+                                                        _.doclist[index]
+                                                            .numColegioMed,
+                                                    style: TextStyle(
+                                                        color: Colors.grey)),
+                                              ],
                                             )
                                           ],
                                         ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              'Duración',
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 13),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              '60 min',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600),
-                                            )
-                                          ],
+                                        Divider(
+                                          color: Colors.grey,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 10, right: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'Importe',
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 13),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    'S/' +
+                                                        _.doclist[index].costo,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  )
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'Duración',
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 13),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    '60 min',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         )
-                                      ],
-                                    ),
-                                  )
-                                  /*ListTile(
+                                        /*ListTile(
                                     leading: Stack(
                                       children: [
                                         Container(
@@ -259,20 +288,20 @@ class DoctoresListPage extends StatelessWidget {
                                       ],
                                     ),
                                   ),*/
-                                  ,
-                                  SizedBox(
-                                    height: 12,
+                                        ,
+                                        SizedBox(
+                                          height: 12,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  )
+                            );
+                          },
+                        )
 
-                      /*SingleChildScrollView(
+                            /*SingleChildScrollView(
                       child: Column(
                         children: [
                           Card(
@@ -342,8 +371,8 @@ class DoctoresListPage extends StatelessWidget {
                         ],
                       ),
                     ),*/
-                      ),
-                )
+                            ),
+                      )
               ],
             ),
           )),

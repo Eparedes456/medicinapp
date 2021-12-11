@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medicianapp/models/Doctors/DoctorsModel.dart';
+import 'package:medicianapp/pages/Appointmen/Appointmen.dart';
 import 'package:medicianapp/pages/Doctores/DoctorPage.dart';
 import 'package:medicianapp/services/ApiServices.dart';
 
@@ -47,5 +48,9 @@ class LisDocController extends GetxController {
 
   navigateToPerDoc() {
     Get.to(DoctorPage());
+  }
+
+  navigateToAgendar() {
+    Get.to(AppointmenPage());
   }
 }

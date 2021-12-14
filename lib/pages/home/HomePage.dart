@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:medicianapp/controller/HomeController/HomeController.dart';
 import 'package:medicianapp/pages/Doctores/DoctoresListPage.dart';
@@ -148,11 +150,20 @@ class HomePage extends StatelessWidget {
                             children: [
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.2,
+                                width: double.infinity,
                                 decoration: BoxDecoration(
                                     color: Colors.blue,
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(10),
                                         topRight: Radius.circular(10))),
+                                child: Image(
+                                                          image: MemoryImage(
+                                                              base64Decode(_
+                                                                  .listEspe[
+                                                                      index]
+                                                                  .foto)),
+                                                          fit: BoxFit.cover,
+                                                        )
                               ),
                               SizedBox(
                                 height: 12,

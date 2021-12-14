@@ -32,11 +32,15 @@ class HomeController extends GetxController{
 
       response.forEach((element){
 
+        var fotodata = element["foto"].split(',');
+        //print(fotodata);
+
         listEspe.add(
           EspecialidadesModel(
             idEspecialidad  : element['idEspecialidad'],
             nombre          : element['nombre'],
             descripcion     : element['descripcion'],
+            foto            : fotodata[1], //element["foto"].substring(23),
             estado          : element['estado']
           )
         );

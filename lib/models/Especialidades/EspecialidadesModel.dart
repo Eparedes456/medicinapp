@@ -18,10 +18,12 @@ class EspecialidadesModel {
   late int idEspecialidad;
   late String nombre;
   late String descripcion;
+  late String foto;
   late bool estado;
 
   EspecialidadesModel({
-    required this.idEspecialidad, required this.nombre, required this.descripcion, required this.estado
+    required this.idEspecialidad, required this.nombre, required this.descripcion, 
+    required this.foto,required this.estado
   });  
 
   factory EspecialidadesModel.fromMap(Map<String, dynamic> json) => EspecialidadesModel(
@@ -29,6 +31,7 @@ class EspecialidadesModel {
     idEspecialidad        : json["idEspecialidad"],
     nombre                : json["nombre"],
     descripcion           : json["descripcion"],
+    foto                  : json["foto"],
     estado                : json["estado"],
             
   );
@@ -40,6 +43,7 @@ class EspecialidadesModel {
       'idEspecialidad'      : idEspecialidad,
       'nombre'              : nombre,
       'descripcion'         : descripcion,
+      "foto"                : foto,
       'estado'              : estado,
            
     };

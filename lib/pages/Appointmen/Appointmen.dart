@@ -13,7 +13,8 @@ class AppointmenPage extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            Expanded(
+            Text('Los horarios que se muestran a continuación son para los dias de Lunes a Domingo'),
+            /*Expanded(
               child: SizedBox(
                 height: MediaQuery.of(context).size.height / 5,
                 width: double.infinity,
@@ -24,7 +25,7 @@ class AppointmenPage extends StatelessWidget {
                   focusedDay: DateTime(2020),
                 ),
               ),
-            ),
+            ),*/
             Divider(
               color: Colors.grey,
             ),

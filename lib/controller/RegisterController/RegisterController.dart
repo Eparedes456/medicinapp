@@ -29,7 +29,7 @@ class RegisterController extends GetxController{
 
 
   registerUser()async{
-    loading();
+    loading("Guardando los datos..",true);
 
     var data ={
       "apellidoMaterno" : apeMaController.text,
@@ -40,7 +40,8 @@ class RegisterController extends GetxController{
       "idUsuario"       : 0,
       "login"           : userController.text,
       "nombre"          : nameController.text,
-      "password"        : passController.text
+      "password"        : passController.text,
+      "foto"            : ""
 
     };
     
@@ -49,7 +50,12 @@ class RegisterController extends GetxController{
 
       
         print('se registro correctamente');
-        Get.offAll(LoginPage());
+        Get.back();
+        loading("Se registro correctamente", false);
+        Future.delayed(Duration(seconds: 2),(){
+          Get.offAll(LoginPage());
+        });
+        
       
 
     }else{
@@ -61,16 +67,16 @@ class RegisterController extends GetxController{
 
   }
 
-  loading()async{
+  loading(String mensaje, bool loading)async{
 
     Get.dialog(
       AlertDialog(
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(),
+            loading == true ?  CircularProgressIndicator() : Container(),
             SizedBox(height: 12,),
-            Text('Guardando los datos..')
+            Text(mensaje)
           ],
         ),
       )

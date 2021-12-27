@@ -54,7 +54,8 @@ class DoctoresListPage extends StatelessWidget {
                                   const EdgeInsets.only(left: 20, right: 20),
                               child: GestureDetector(
                                 onTap: () {
-                                  _.navigateToAgendar();
+                                  _.navigateToAgendar(
+                                      _.doclist[index].idDoctor.toString());
                                 },
                                 child: Card(
                                   shape: RoundedRectangleBorder(

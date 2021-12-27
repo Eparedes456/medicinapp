@@ -57,7 +57,7 @@ class LisDocController extends GetxController {
     Get.to(DoctorPage(), arguments: doctorData);
   }
 
-  navigateToAgendar() {
-    Get.to(AppointmenPage());
+  navigateToAgendar(String idDoctor) {
+    Get.to(AppointmenPage(), arguments: idDoctor);
   }
 }

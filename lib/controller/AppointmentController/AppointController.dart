@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medicianapp/services/ApiServices.dart';
+import 'package:medicianapp/models/Horarios/HorariosModel.dart';
 
 class ApointController extends GetxController{
 
@@ -24,6 +25,8 @@ class ApointController extends GetxController{
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   ApiServices apiConexion = ApiServices();
   String idDoctor = "";
+
+  List<HorariosModel> listHorarios = [];
   
   selectedDay(DateTime daySelect, DateTime focusDay)async{
 
@@ -37,7 +40,31 @@ class ApointController extends GetxController{
     print("Id doctor :  $idDoctor");
     var response = await apiConexion.getScheduleByDoctor(dayFinal.toString(),idDoctor.toString());
     
-    print(response);
+    if(response != 1 && response !=2 && response !=0){
+
+      var response2 = await apiConexion.getHorarioByDoctor(response[0]["idCalendario"].toString());
+      print(response2);
+      if(response2 != 1 && response2 !=2 && response2 !=0){
+
+        for (var i = 0; i < response2.length; i++) {
+          
+          listHorarios.add(
+            HorariosModel(
+              idHorario   : response2[i]['horario']['idHorario'], 
+              descripcion : response2[i]['horario']['descripcion']
+            )
+          );
+
+        }
+
+        
+
+      }
+
+      print(listHorarios);
+
+    }
+
     update();
 
 

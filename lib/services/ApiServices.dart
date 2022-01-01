@@ -120,4 +120,27 @@ class ApiServices {
       return 2;
     }
   }
+
+  getHorarioByDoctor(String idCalendario) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var token = await preferences.getString('token');
+    var url = Uri.parse(
+        baseUrl + '/api/v1/calendario_horario/byCalendario/$idCalendario');
+    var response = await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      //'Accept': 'application/json',
+      'Authorization': 'Bearer $token' //$token'
+    });
+
+    if (response.statusCode == 200) {
+      final decodedData = json.decode(utf8.decode(response.bodyBytes));
+      return decodedData['data'];
+    } else if (response.statusCode == 401) {
+      return 0;
+    } else if (response.statusCode == 500) {
+      return 1;
+    } else if (response.statusCode == 404) {
+      return 2;
+    }
+  }
 }

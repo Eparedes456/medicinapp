@@ -65,8 +65,46 @@ class AppointmenPage extends StatelessWidget {
               ),*/
               Expanded(
                   child: Container(
-                color: Colors.red,
-              )),
+                      child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 100,
+                                  childAspectRatio: 3 / 1,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 4),
+                          itemCount: _.listHorarios.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                color: Colors.blue,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child:
+                                      Text(_.listHorarios[index].descripcion),
+                                ));
+                          })
+
+                      /*ListView.builder(
+                    itemCount: _.listHorarios.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                                //height: 50,
+                                //width: 50,
+                                color: Colors.blue,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child:
+                                      Text(_.listHorarios[index].descripcion),
+                                )),
+                          ),
+                        ],
+                      );
+                    }),*/
+
+                      )),
               Divider(
                 color: Colors.grey,
               ),

@@ -31,10 +31,14 @@ class LoginController extends GetxController {
       print('ingrese');
       preferences.setString('token', response['token']);
       preferences.setString('username', response['user']['nombreCompleto']);
+      preferences.setString('idUser', response['user']['id'].toString());
       Get.back();
       Get.offAll(HomePage());
     } else if (response == 1) {
       print('error de servidor');
+    } else {
+      Get.back();
+      message("datos incorrectos");
     }
   }
 
@@ -43,6 +47,15 @@ class LoginController extends GetxController {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [CircularProgressIndicator(), Text('Verficando los datos..')],
+      ),
+    ));
+  }
+
+  message(String mensaje) async {
+    Get.dialog(AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [Text('$mensaje')],
       ),
     ));
   }

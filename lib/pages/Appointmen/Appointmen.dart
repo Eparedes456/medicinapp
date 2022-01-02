@@ -51,60 +51,43 @@ class AppointmenPage extends StatelessWidget {
                 color: Colors.grey,
               ),
 
-              /*Expanded(
-                child: SizedBox(
-                    height: MediaQuery.of(context).size.height / 2.2,
-                    width: double.infinity,
-                    //color: Colors.black,
-                    child: TableCalendar(
-                      firstDay: DateTime.utc(2010, 10, 16),
-                      lastDay: DateTime.utc(2030, 3, 14),
-                      focusedDay: DateTime.now(),
-                      calendarStyle: CalendarStyle(),
-                    )),
-              ),*/
               Expanded(
                   child: Container(
-                      child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 100,
-                                  childAspectRatio: 3 / 1,
-                                  crossAxisSpacing: 20,
-                                  mainAxisSpacing: 4),
-                          itemCount: _.listHorarios.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                                color: Colors.blue,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child:
-                                      Text(_.listHorarios[index].descripcion),
-                                ));
-                          })
-
-                      /*ListView.builder(
+                      child: Padding(
+                padding: EdgeInsets.only(left: 5, right: 5),
+                child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 100,
+                            childAspectRatio: 3 / 1,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 4),
                     itemCount: _.listHorarios.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                                //height: 50,
-                                //width: 50,
-                                color: Colors.blue,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child:
-                                      Text(_.listHorarios[index].descripcion),
-                                )),
-                          ),
-                        ],
+                      return GestureDetector(
+                        onTap: () {
+                          _.selectHour(_.listHorarios[index]);
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.blue),
+                                color: _.listHorarios[index].select == false
+                                    ? Colors.transparent
+                                    : Colors.blue),
+                            child: Padding(
+                              padding: const EdgeInsets.all(0.0),
+                              child: Center(
+                                  child: Text(
+                                _.listHorarios[index].descripcion,
+                                style: TextStyle(
+                                    color: _.listHorarios[index].select == true
+                                        ? Colors.white
+                                        : Colors.black),
+                              )),
+                            )),
                       );
-                    }),*/
-
-                      )),
+                    }),
+              ))),
               Divider(
                 color: Colors.grey,
               ),
@@ -116,19 +99,24 @@ class AppointmenPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      height: 35,
-                      decoration: BoxDecoration(
-                          color: Colors.teal,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Programar horario',
-                          style: TextStyle(fontSize: 13, color: Colors.white),
-                        ),
-                      )),
+                    GestureDetector(
+                      onTap: () {
+                        _.saveAppointment();
+                      },
+                      child: Container(
+                        height: 35,
+                        decoration: BoxDecoration(
+                            color: Colors.teal,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Programar horario',
+                            style: TextStyle(fontSize: 13, color: Colors.white),
+                          ),
+                        )),
+                      ),
                     )
                   ],
                 ),

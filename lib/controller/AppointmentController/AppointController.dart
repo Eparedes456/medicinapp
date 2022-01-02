@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medicianapp/services/ApiServices.dart';
 import 'package:medicianapp/models/Horarios/HorariosModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ApointController extends GetxController{
 
@@ -25,6 +26,7 @@ class ApointController extends GetxController{
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   ApiServices apiConexion = ApiServices();
   String idDoctor = "";
+  String idHoraSelect = "";
 
   List<HorariosModel> listHorarios = [];
   
@@ -51,7 +53,8 @@ class ApointController extends GetxController{
           listHorarios.add(
             HorariosModel(
               idHorario   : response2[i]['horario']['idHorario'], 
-              descripcion : response2[i]['horario']['descripcion']
+              descripcion : response2[i]['horario']['descripcion'],
+              select      : false
             )
           );
 
@@ -68,6 +71,51 @@ class ApointController extends GetxController{
     update();
 
 
+
+  }
+
+  selectHour(HorariosModel horaSeleccionada)async{
+
+    print(horaSeleccionada.descripcion);
+    print(horaSeleccionada.idHorario);
+
+    listHorarios.forEach((element) {
+
+      if(element.idHorario == horaSeleccionada.idHorario ){
+        element.select = true;
+        idHoraSelect = element.idHorario.toString();
+      }else{
+        element.select = false;
+      }    
+
+    });
+
+    update();
+
+
+  }
+
+
+  saveAppointment()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var idPaciente = await preferences.getString('idUser');
+    final dayFormate = DateFormat('yyyy-MM-dd');
+    final dayFinal = dayFormate.format(selectDay);
+
+    var save = {
+      "idCita" : 0,
+      "costo" : "",
+      "doctor" : {
+        "idDoctor" : idDoctor
+      },
+      "paciente": {
+        "idPaciente" : idPaciente,
+      },
+      "fecha": dayFinal
+
+    };
+
+    print(save);
 
   }
 

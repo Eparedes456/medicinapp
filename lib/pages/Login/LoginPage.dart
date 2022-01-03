@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(
       init: LoginController(),
-      builder: (_)=> Scaffold(
+      builder: (_) => Scaffold(
           body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -54,7 +54,7 @@ class LoginPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: TextFormField(
-                  controller: _.userController,
+                    controller: _.userController,
                     decoration: InputDecoration(
                         hintText: 'Ingrese su usuario',
                         prefixIcon: Icon(Icons.person))),
@@ -65,7 +65,8 @@ class LoginPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20),
                 child: TextFormField(
-                  controller: _.passController,
+                    obscureText: true,
+                    controller: _.passController,
                     decoration: InputDecoration(
                         hintText: 'Ingrese su contraseña',
                         prefixIcon: Icon(Icons.lock))),
@@ -131,7 +132,6 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-    
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
@@ -148,10 +148,7 @@ class LoginPage extends StatelessWidget {
                     decoration: BoxDecoration(
                         //color: Colors.blue,
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(
-                          color: Colors.blue
-                        )
-                    ),
+                        border: Border.all(color: Colors.blue)),
                     child: Center(
                       child: Text(
                         'Registrarse',

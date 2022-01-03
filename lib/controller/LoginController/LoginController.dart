@@ -32,6 +32,8 @@ class LoginController extends GetxController {
       preferences.setString('token', response['token']);
       preferences.setString('username', response['user']['nombreCompleto']);
       preferences.setString('idUser', response['user']['id'].toString());
+      preferences.setString(
+          'fotoUser', response['sistemas'][0]['usuario']['foto']);
       Get.back();
       Get.offAll(HomePage());
     } else if (response == 1) {

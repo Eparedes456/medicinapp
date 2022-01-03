@@ -52,26 +52,37 @@ class RegisterUser extends StatelessWidget {
                 //color: Colors.black,
                 child: Stack(
                   children: [
-                    Center(
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(
-                            'https://media.istockphoto.com/vectors/profile-picture-vector-illustration-vector-id587805078?k=20&m=587805078&s=612x612&w=0&h=lG42-xD-t1uYYficY4DQmHoACnx739xELZsvpyevLgg='),
-                      ),
-                    ),
+                    _.base64Image == ""
+                        ? Center(
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundImage: NetworkImage(
+                                  'https://media.istockphoto.com/vectors/profile-picture-vector-illustration-vector-id587805078?k=20&m=587805078&s=612x612&w=0&h=lG42-xD-t1uYYficY4DQmHoACnx739xELZsvpyevLgg='),
+                            ),
+                          )
+                        : Center(
+                            child: CircleAvatar(
+                                radius: 50,
+                                backgroundImage: MemoryImage(_.bytes)),
+                          ),
                     Positioned(
                       bottom: 5,
                       right: 3,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(50)),
-                        height: 30,
-                        width: 30,
-                        child: Center(
-                          child: Icon(
-                            Icons.camera,
-                            size: 20,
+                      child: GestureDetector(
+                        onTap: () {
+                          _.showCameraOpcion();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50)),
+                          height: 30,
+                          width: 30,
+                          child: Center(
+                            child: Icon(
+                              Icons.camera,
+                              size: 20,
+                            ),
                           ),
                         ),
                       ),
@@ -205,6 +216,7 @@ class RegisterUser extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.only(left: 20),
                     child: TextField(
+                      controller: _.emailController,
                       style: TextStyle(color: Colors.blue[900]),
                       decoration: InputDecoration(
                           border: InputBorder.none,

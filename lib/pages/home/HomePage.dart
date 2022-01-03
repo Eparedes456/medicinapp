@@ -41,7 +41,10 @@ class HomePage extends StatelessWidget {
                                   width: 40,
                                   decoration: BoxDecoration(
                                       color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(10)),
+                                      borderRadius: BorderRadius.circular(10),
+                                      image: DecorationImage(
+                                          image: MemoryImage(_.bytes),
+                                          fit: BoxFit.cover)),
                                 ),
                                 Text(
                                   'Telemedicina',
@@ -49,13 +52,19 @@ class HomePage extends StatelessWidget {
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Container(
-                                  height: 40,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Icon(Icons.people_alt),
+                                GestureDetector(
+                                  onTap: () {
+                                    _.navigateToSettings();
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 40,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Icon(Icons.settings),
+                                  ),
                                 )
                               ],
                             ),
